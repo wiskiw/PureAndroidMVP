@@ -1,15 +1,18 @@
-package qulix.com.puremvponloaders.some;
+package qulix.com.puremvponloaders.some.fragment;
 
 import android.support.annotation.NonNull;
 import android.util.Log;
-import qulix.com.puremvponloaders.mvp.state.MvpStatePresenter;
+import qulix.com.puremvponloaders.mvp.fragment.MvpFragmentStatePresenter;
+import qulix.com.puremvponloaders.some.LongTaskHere;
 
-public class SomePresenter extends MvpStatePresenter<SomeView, SomeViewState>
-        implements LongTaskHere.Callback {
+public class SomeFragmentPresenter extends MvpFragmentStatePresenter<SomeFragmentView, SomeFragmentViewState> implements LongTaskHere.Callback {
 
+    private static final String LOG_TAG = "LOG_TAG_FRG_P";
     private String textData;
 
+
     public void update() {
+        Log.d(LOG_TAG, "fragment update");
         ifViewAttached(view -> {
             textData = null;
             loadTextData(view);
@@ -18,7 +21,7 @@ public class SomePresenter extends MvpStatePresenter<SomeView, SomeViewState>
 
     @Override
     public void longTaskDone(String data) {
-        getViewState().setState(SomeViewState.State.OK);
+        getViewState().setState(SomeFragmentViewState.State.OK);
         textData = data;
         ifViewAttached(view -> {
             view.showLoading(false);
@@ -26,9 +29,9 @@ public class SomePresenter extends MvpStatePresenter<SomeView, SomeViewState>
         });
     }
 
-    private void loadTextData(SomeView view) {
+    private void loadTextData(SomeFragmentView view) {
         if (textData == null) {
-            getViewState().setState(SomeViewState.State.LOADING);
+            getViewState().setState(SomeFragmentViewState.State.LOADING);
             view.showLoading(true);
             LongTaskHere.doLongTask(this);
         }
@@ -36,13 +39,13 @@ public class SomePresenter extends MvpStatePresenter<SomeView, SomeViewState>
 
     @NonNull
     @Override
-    protected SomeViewState newViewState() {
-        return new SomeViewState();
+    public SomeFragmentViewState newViewState() {
+        return new SomeFragmentViewState();
     }
 
     @Override
-    protected void applyViewState(boolean firstAttach, SomeView view, SomeViewState viewState) {
-        Log.d("LOG_TAG", "applyViewState: " + firstAttach + " - " + viewState.getState());
+    public void applyViewState(boolean firstAttach, SomeFragmentView view, SomeFragmentViewState viewState) {
+        Log.d(LOG_TAG, "fragment applyViewState: " + firstAttach + " - " + viewState.getState());
         switch (viewState.getState()) {
             case LOADING:
                 view.showLoading(true);
@@ -55,4 +58,6 @@ public class SomePresenter extends MvpStatePresenter<SomeView, SomeViewState>
                 break;
         }
     }
+
+
 }

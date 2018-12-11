@@ -6,7 +6,7 @@ import android.os.Looper;
 @SuppressWarnings("WeakerAccess")
 public class LongTaskHere {
 
-    interface Callback {
+    public interface Callback {
         void longTaskDone(String data);
     }
 

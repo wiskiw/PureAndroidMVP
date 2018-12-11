@@ -1,17 +1,21 @@
-package qulix.com.puremvponloaders.some;
+package qulix.com.puremvponloaders.some.activity;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 import qulix.com.puremvponloaders.R;
-import qulix.com.puremvponloaders.mvp.MvpActivity;
+import qulix.com.puremvponloaders.mvp.activity.MvpActivity;
+import qulix.com.puremvponloaders.some.fragment.SomeFragment;
 
-public class SomeActivity extends MvpActivity<SomePresenter, SomeView> implements SomeView {
+public class SomeActivity extends MvpActivity<SomeActivityPresenter, SomeActivityView> implements SomeActivityView {
+
+    private static final String LOG_TAG = "LOG_TAG_ACT";
 
     private TextView textView;
     private EditText editText;
@@ -19,8 +23,8 @@ public class SomeActivity extends MvpActivity<SomePresenter, SomeView> implement
 
     @Override
     @NonNull
-    protected SomePresenter getNewPresenter() {
-        return new SomePresenter();
+    protected SomeActivityPresenter getNewPresenter() {
+        return new SomeActivityPresenter();
     }
 
     @Override
@@ -32,10 +36,21 @@ public class SomeActivity extends MvpActivity<SomePresenter, SomeView> implement
         editText = findViewById(R.id.editText);
         button = findViewById(R.id.button);
 
+
+        String frgTag = "frg";
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        SomeFragment someFragment = (SomeFragment) fragmentManager.findFragmentByTag(frgTag);
+        if (someFragment == null) {
+            someFragment = new SomeFragment();
+        }
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.frameLayout, someFragment, frgTag)
+                .commit();
+
     }
 
     @Override
-    protected void onPresenterAttached(SomePresenter presenter) {
+    protected void onPresenterAttached(SomeActivityPresenter presenter) {
         super.onPresenterAttached(presenter);
 
         button.setOnClickListener(v -> presenter.update());
@@ -44,8 +59,7 @@ public class SomeActivity extends MvpActivity<SomePresenter, SomeView> implement
 
     @Override
     public void showLoading(boolean loading) {
-        Log.d("LOG_TAG", "showLoading: " + loading);
-        Log.d("LOG_TAG", "showLoading: " + this);
+        Log.d(LOG_TAG, "showLoading: " + loading);
         textView.setText("loading " + loading);
         if (loading) {
             editText.setText("");
@@ -54,7 +68,7 @@ public class SomeActivity extends MvpActivity<SomePresenter, SomeView> implement
 
     @Override
     public void showLoadedData(String data) {
-        Log.d("LOG_TAG", "showLoadedData: " + data);
+        Log.d(LOG_TAG, "showLoadedData: " + data);
         editText.setText("data " + data);
         Toast.makeText(this, data, Toast.LENGTH_SHORT).show();
     }

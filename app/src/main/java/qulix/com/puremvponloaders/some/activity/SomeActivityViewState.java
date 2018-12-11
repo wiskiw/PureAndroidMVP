@@ -1,8 +1,8 @@
-package qulix.com.puremvponloaders.some;
+package qulix.com.puremvponloaders.some.activity;
 
-import qulix.com.puremvponloaders.mvp.state.MvpViewState;
+import qulix.com.puremvponloaders.mvp.MvpViewState;
 
-public class SomeViewState implements MvpViewState {
+public class SomeActivityViewState implements MvpViewState {
 
     enum State {
         LOADING,

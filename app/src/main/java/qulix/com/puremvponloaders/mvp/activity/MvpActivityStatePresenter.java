@@ -1,10 +1,12 @@
-package qulix.com.puremvponloaders.mvp.state;
+package qulix.com.puremvponloaders.mvp.activity;
 
 import android.support.annotation.NonNull;
-import qulix.com.puremvponloaders.mvp.MvpPresenter;
+import qulix.com.puremvponloaders.mvp.MvpStatePresenter;
 import qulix.com.puremvponloaders.mvp.MvpView;
+import qulix.com.puremvponloaders.mvp.MvpViewState;
 
-public abstract class MvpStatePresenter<V extends MvpView, VS extends MvpViewState> extends MvpPresenter<V> {
+public abstract class MvpActivityStatePresenter<V extends MvpView, VS extends MvpViewState>
+        extends MvpActivityPresenter<V> implements MvpStatePresenter<V, VS> {
 
     @NonNull
     private VS viewState = newViewState();
@@ -19,11 +21,5 @@ public abstract class MvpStatePresenter<V extends MvpView, VS extends MvpViewSta
     public VS getViewState() {
         return viewState;
     }
-
-    @NonNull
-    protected abstract VS newViewState();
-
-    protected abstract void applyViewState(boolean firstAttach, V view, VS viewState);
-
 
 }

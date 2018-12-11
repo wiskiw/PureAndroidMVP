@@ -1,4 +1,4 @@
-package qulix.com.puremvponloaders.mvp;
+package qulix.com.puremvponloaders.mvp.activity;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -6,7 +6,9 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
+import qulix.com.puremvponloaders.mvp.MvpPresenter;
+import qulix.com.puremvponloaders.mvp.MvpPresenterLoader;
+import qulix.com.puremvponloaders.mvp.MvpView;
 
 public abstract class MvpActivity<P extends MvpPresenter<V>, V extends MvpView> extends AppCompatActivity
         implements LoaderManager.LoaderCallbacks<P> {
@@ -36,14 +38,13 @@ public abstract class MvpActivity<P extends MvpPresenter<V>, V extends MvpView> 
     @Override
     protected void onResume() {
         super.onResume();
-        Log.d("LOG_TAG", "onResume: " + presenter);
         if (presenter != null) {
             onPresenterAttached(presenter);
             try {
                 presenter.attachView((V) this);
             } catch (ClassCastException ex) {
                 throw new ClassCastException(getClass().getCanonicalName()
-                        + "must implement same MvpView interface as and MvpPresenter");
+                        + " must implement same MvpView as and MvpActivityPresenter interface");
             }
         }
     }
@@ -51,7 +52,6 @@ public abstract class MvpActivity<P extends MvpPresenter<V>, V extends MvpView> 
     @Override
     protected void onStop() {
         super.onStop();
-        Log.d("LOG_TAG", "onStop: " + presenter);
         if (presenter != null) {
             presenter.detachView();
         }
@@ -60,7 +60,7 @@ public abstract class MvpActivity<P extends MvpPresenter<V>, V extends MvpView> 
     @NonNull
     @Override
     public final Loader<P> onCreateLoader(int i, @Nullable Bundle bundle) {
-        return new MvpLoader<>(this, getNewPresenter());
+        return new MvpPresenterLoader<>(this, getNewPresenter());
     }
 
     @Override
