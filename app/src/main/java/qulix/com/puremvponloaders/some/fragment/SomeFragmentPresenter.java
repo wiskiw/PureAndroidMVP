@@ -34,6 +34,8 @@ public class SomeFragmentPresenter extends MvpFragmentStatePresenter<SomeFragmen
             getViewState().setState(SomeFragmentViewState.State.LOADING);
             view.showLoading(true);
             LongTaskHere.doLongTask(this);
+        } else {
+            view.showLoading(false);
         }
     }
 
@@ -51,7 +53,7 @@ public class SomeFragmentPresenter extends MvpFragmentStatePresenter<SomeFragmen
                 view.showLoading(true);
                 break;
             case OK:
-                loadTextData(view);
+                view.showLoading(false);
                 break;
             case ERROR:
                 // nothing to do

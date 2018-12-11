@@ -36,6 +36,8 @@ public class SomeActivityPresenter extends MvpActivityStatePresenter<SomeActivit
             getViewState().setState(SomeActivityViewState.State.LOADING);
             view.showLoading(true);
             LongTaskHere.doLongTask(this);
+        } else {
+            view.showLoading(false);
         }
     }
 
