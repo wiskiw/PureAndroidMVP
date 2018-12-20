@@ -13,10 +13,13 @@ import qulix.com.puremvponloaders.mvp.MvpView;
 public abstract class MvpActivity<P extends MvpPresenter<V>, V extends MvpView> extends AppCompatActivity
         implements LoaderManager.LoaderCallbacks<P> {
 
-    @Nullable
     private P presenter;
 
-    @Nullable
+    /**
+     * Presenter инициализирован в OnResume далее
+     *
+     * @return презентер для текущей view
+     */
     public P getPresenter() {
         return presenter;
     }

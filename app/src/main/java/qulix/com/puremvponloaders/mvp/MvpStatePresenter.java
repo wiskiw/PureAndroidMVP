@@ -10,6 +10,6 @@ public interface MvpStatePresenter<V extends MvpView, VS extends MvpViewState> {
     @NonNull
     VS newViewState();
 
-    void applyViewState(boolean firstAttach, V view, VS viewState);
+    boolean applyViewState(boolean firstAttach, V view, VS viewState);
 
 }

@@ -49,18 +49,20 @@ public class SomeActivityPresenter extends MvpActivityStatePresenter<SomeActivit
     }
 
     @Override
-    public void applyViewState(boolean firstAttach, SomeActivityView view, SomeActivityViewState viewState) {
+    public boolean applyViewState(boolean firstAttach, SomeActivityView view, SomeActivityViewState viewState) {
         Log.d(LOG_TAG, "activity applyViewState: " + firstAttach + " - " + viewState.getState());
         switch (viewState.getState()) {
             case LOADING:
                 view.showLoading(true);
-                break;
+                return true;
             case OK:
-                loadTextData(view);
-                break;
+                view.showLoading(false);
+                return true;
             case ERROR:
                 // nothing to do
-                break;
+                return true;
+            default:
+                return false;
         }
     }
 }

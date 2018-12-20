@@ -46,18 +46,20 @@ public class SomeFragmentPresenter extends MvpFragmentStatePresenter<SomeFragmen
     }
 
     @Override
-    public void applyViewState(boolean firstAttach, SomeFragmentView view, SomeFragmentViewState viewState) {
+    public boolean applyViewState(boolean firstAttach, SomeFragmentView view, SomeFragmentViewState viewState) {
         Log.d(LOG_TAG, "fragment applyViewState: " + firstAttach + " - " + viewState.getState());
         switch (viewState.getState()) {
             case LOADING:
                 view.showLoading(true);
-                break;
+                return true;
             case OK:
                 view.showLoading(false);
-                break;
+                return true;
             case ERROR:
                 // nothing to do
-                break;
+                return true;
+            default:
+                return false;
         }
     }
 
