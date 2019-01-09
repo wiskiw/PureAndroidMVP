@@ -1,8 +1,8 @@
-package qulix.com.puremvponloaders.some.fragment;
+package qulix.com.puremvponloaders.example.fragment;
 
 import qulix.com.puremvponloaders.mvp.MvpViewState;
 
-public class SomeFragmentViewState implements MvpViewState {
+public class ExampleFragmentViewState implements MvpViewState {
 
     enum State {
         LOADING,

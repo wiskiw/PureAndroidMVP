@@ -1,4 +1,4 @@
-package qulix.com.puremvponloaders.some;
+package qulix.com.puremvponloaders.example;
 
 import android.os.Handler;
 import android.os.Looper;

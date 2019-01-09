@@ -1,11 +1,11 @@
-package qulix.com.puremvponloaders.some.activity;
+package qulix.com.puremvponloaders.example.activity;
 
 import android.support.annotation.NonNull;
 import android.util.Log;
 import qulix.com.puremvponloaders.mvp.activity.MvpActivityStatePresenter;
-import qulix.com.puremvponloaders.some.LongTaskHere;
+import qulix.com.puremvponloaders.example.LongTaskHere;
 
-public class SomeActivityPresenter extends MvpActivityStatePresenter<SomeActivityView, SomeActivityViewState>
+public class ExampleActivityPresenter extends MvpActivityStatePresenter<ExampleActivityView, ExampleActivityViewState>
         implements LongTaskHere.Callback {
 
     private static final String LOG_TAG = "LOG_TAG_ACT_P";
@@ -23,7 +23,7 @@ public class SomeActivityPresenter extends MvpActivityStatePresenter<SomeActivit
 
     @Override
     public void longTaskDone(String data) {
-        getViewState().setState(SomeActivityViewState.State.OK);
+        getViewState().setState(ExampleActivityViewState.State.OK);
         textData = data;
         ifViewAttached(view -> {
             view.showLoading(false);
@@ -31,9 +31,9 @@ public class SomeActivityPresenter extends MvpActivityStatePresenter<SomeActivit
         });
     }
 
-    private void loadTextData(SomeActivityView view) {
+    private void loadTextData(ExampleActivityView view) {
         if (textData == null) {
-            getViewState().setState(SomeActivityViewState.State.LOADING);
+            getViewState().setState(ExampleActivityViewState.State.LOADING);
             view.showLoading(true);
             LongTaskHere.doLongTask(this);
         } else {
@@ -43,26 +43,25 @@ public class SomeActivityPresenter extends MvpActivityStatePresenter<SomeActivit
 
     @NonNull
     @Override
-    public SomeActivityViewState newViewState() {
+    public ExampleActivityViewState newViewState() {
         Log.d(LOG_TAG, "activity newViewState");
-        return new SomeActivityViewState();
+        return new ExampleActivityViewState();
     }
 
     @Override
-    public boolean applyViewState(boolean firstAttach, SomeActivityView view, SomeActivityViewState viewState) {
+    public void applyViewState(boolean firstAttach, ExampleActivityView view, ExampleActivityViewState viewState) {
         Log.d(LOG_TAG, "activity applyViewState: " + firstAttach + " - " + viewState.getState());
         switch (viewState.getState()) {
             case LOADING:
                 view.showLoading(true);
-                return true;
+                return;
             case OK:
                 view.showLoading(false);
-                return true;
+                return;
             case ERROR:
                 // nothing to do
-                return true;
+                return;
             default:
-                return false;
         }
     }
 }

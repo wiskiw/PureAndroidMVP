@@ -1,11 +1,12 @@
-package qulix.com.puremvponloaders.some.fragment;
+package qulix.com.puremvponloaders.example.fragment;
 
 import android.support.annotation.NonNull;
 import android.util.Log;
 import qulix.com.puremvponloaders.mvp.fragment.MvpFragmentStatePresenter;
-import qulix.com.puremvponloaders.some.LongTaskHere;
+import qulix.com.puremvponloaders.example.LongTaskHere;
 
-public class SomeFragmentPresenter extends MvpFragmentStatePresenter<SomeFragmentView, SomeFragmentViewState> implements LongTaskHere.Callback {
+public class ExampleFragmentPresenter extends MvpFragmentStatePresenter<ExampleFragmentView, ExampleFragmentViewState>
+        implements LongTaskHere.Callback {
 
     private static final String LOG_TAG = "LOG_TAG_FRG_P";
     private String textData;
@@ -21,7 +22,7 @@ public class SomeFragmentPresenter extends MvpFragmentStatePresenter<SomeFragmen
 
     @Override
     public void longTaskDone(String data) {
-        getViewState().setState(SomeFragmentViewState.State.OK);
+        getViewState().setState(ExampleFragmentViewState.State.OK);
         textData = data;
         ifViewAttached(view -> {
             view.showLoading(false);
@@ -29,9 +30,9 @@ public class SomeFragmentPresenter extends MvpFragmentStatePresenter<SomeFragmen
         });
     }
 
-    private void loadTextData(SomeFragmentView view) {
+    private void loadTextData(ExampleFragmentView view) {
         if (textData == null) {
-            getViewState().setState(SomeFragmentViewState.State.LOADING);
+            getViewState().setState(ExampleFragmentViewState.State.LOADING);
             view.showLoading(true);
             LongTaskHere.doLongTask(this);
         } else {
@@ -41,25 +42,24 @@ public class SomeFragmentPresenter extends MvpFragmentStatePresenter<SomeFragmen
 
     @NonNull
     @Override
-    public SomeFragmentViewState newViewState() {
-        return new SomeFragmentViewState();
+    public ExampleFragmentViewState newViewState() {
+        return new ExampleFragmentViewState();
     }
 
     @Override
-    public boolean applyViewState(boolean firstAttach, SomeFragmentView view, SomeFragmentViewState viewState) {
+    public void applyViewState(boolean firstAttach, ExampleFragmentView view, ExampleFragmentViewState viewState) {
         Log.d(LOG_TAG, "fragment applyViewState: " + firstAttach + " - " + viewState.getState());
         switch (viewState.getState()) {
             case LOADING:
                 view.showLoading(true);
-                return true;
+                return;
             case OK:
                 view.showLoading(false);
-                return true;
+                return;
             case ERROR:
                 // nothing to do
-                return true;
+                return;
             default:
-                return false;
         }
     }
 

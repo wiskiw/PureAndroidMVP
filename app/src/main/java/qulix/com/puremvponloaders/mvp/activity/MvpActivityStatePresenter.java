@@ -5,6 +5,11 @@ import qulix.com.puremvponloaders.mvp.MvpStatePresenter;
 import qulix.com.puremvponloaders.mvp.MvpView;
 import qulix.com.puremvponloaders.mvp.MvpViewState;
 
+/**
+ * Mvp Activity Presenter with saving {@link MvpViewState}.
+ *
+ * @author Anrey Yablonsky
+ */
 public abstract class MvpActivityStatePresenter<V extends MvpView, VS extends MvpViewState>
         extends MvpActivityPresenter<V> implements MvpStatePresenter<V, VS> {
 

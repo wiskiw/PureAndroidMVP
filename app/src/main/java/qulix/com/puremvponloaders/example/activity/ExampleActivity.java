@@ -1,4 +1,4 @@
-package qulix.com.puremvponloaders.some.activity;
+package qulix.com.puremvponloaders.example.activity;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -11,9 +11,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 import qulix.com.puremvponloaders.R;
 import qulix.com.puremvponloaders.mvp.activity.MvpActivity;
-import qulix.com.puremvponloaders.some.fragment.SomeFragment;
+import qulix.com.puremvponloaders.example.fragment.ExampleFragment;
 
-public class SomeActivity extends MvpActivity<SomeActivityPresenter, SomeActivityView> implements SomeActivityView {
+public class ExampleActivity extends MvpActivity<ExampleActivityPresenter, ExampleActivityView>
+        implements ExampleActivityView {
 
     private static final String LOG_TAG = "LOG_TAG_ACT";
 
@@ -23,8 +24,8 @@ public class SomeActivity extends MvpActivity<SomeActivityPresenter, SomeActivit
 
     @Override
     @NonNull
-    protected SomeActivityPresenter getNewPresenter() {
-        return new SomeActivityPresenter();
+    protected ExampleActivityPresenter getNewPresenter() {
+        return new ExampleActivityPresenter();
     }
 
     @Override
@@ -39,18 +40,18 @@ public class SomeActivity extends MvpActivity<SomeActivityPresenter, SomeActivit
 
         String frgTag = "frg";
         FragmentManager fragmentManager = getSupportFragmentManager();
-        SomeFragment someFragment = (SomeFragment) fragmentManager.findFragmentByTag(frgTag);
-        if (someFragment == null) {
-            someFragment = new SomeFragment();
+        ExampleFragment exampleFragment = (ExampleFragment) fragmentManager.findFragmentByTag(frgTag);
+        if (exampleFragment == null) {
+            exampleFragment = new ExampleFragment();
         }
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.frameLayout, someFragment, frgTag)
+                .replace(R.id.frameLayout, exampleFragment, frgTag)
                 .commit();
 
     }
 
     @Override
-    protected void onPresenterAttached(SomeActivityPresenter presenter) {
+    protected void onPresenterAttached(ExampleActivityPresenter presenter) {
         super.onPresenterAttached(presenter);
 
         button.setOnClickListener(v -> presenter.update());

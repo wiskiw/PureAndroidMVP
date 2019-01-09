@@ -1,4 +1,4 @@
-package qulix.com.puremvponloaders.some.fragment;
+package qulix.com.puremvponloaders.example.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -14,7 +14,8 @@ import android.widget.Toast;
 import qulix.com.puremvponloaders.R;
 import qulix.com.puremvponloaders.mvp.fragment.MvpFragment;
 
-public class SomeFragment extends MvpFragment<SomeFragmentPresenter, SomeFragmentView> implements SomeFragmentView {
+public class ExampleFragment extends MvpFragment<ExampleFragmentPresenter, ExampleFragmentView>
+        implements ExampleFragmentView {
 
     private static final String LOG_TAG = "LOG_TAG_FRG";
 
@@ -36,13 +37,13 @@ public class SomeFragment extends MvpFragment<SomeFragmentPresenter, SomeFragmen
 
     @NonNull
     @Override
-    protected SomeFragmentPresenter getNewPresenter() {
-        Log.d(LOG_TAG, "getNewPresenter SomeFragmentPresenter");
-        return new SomeFragmentPresenter();
+    protected ExampleFragmentPresenter getNewPresenter() {
+        Log.d(LOG_TAG, "getNewPresenter ExampleFragmentPresenter");
+        return new ExampleFragmentPresenter();
     }
 
     @Override
-    protected void onPresenterAttached(SomeFragmentPresenter presenter) {
+    protected void onPresenterAttached(ExampleFragmentPresenter presenter) {
         super.onPresenterAttached(presenter);
         Log.d(LOG_TAG, "onPresenterAttached: " + presenter);
         button.setOnClickListener(v -> presenter.update());

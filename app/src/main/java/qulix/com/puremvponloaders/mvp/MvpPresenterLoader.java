@@ -4,6 +4,13 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v4.content.Loader;
 
+/**
+ * Android loader class for saving MVP presenter when screen configuration changing.
+ *
+ * @param <P> type of {@link MvpPresenter} class
+ * @author Andrey Yablonsky
+ * @see Loader
+ */
 public class MvpPresenterLoader<P extends MvpPresenter> extends Loader<P> {
 
     @NonNull

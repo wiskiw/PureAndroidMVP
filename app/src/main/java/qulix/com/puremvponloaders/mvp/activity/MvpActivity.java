@@ -10,6 +10,13 @@ import qulix.com.puremvponloaders.mvp.MvpPresenter;
 import qulix.com.puremvponloaders.mvp.MvpPresenterLoader;
 import qulix.com.puremvponloaders.mvp.MvpView;
 
+/**
+ * Base class for create Mvp Activity. Process saving presenter instance when screen configuration changing.
+ *
+ * @param <V> view interface, that implement current activity
+ * @param <P> type of presenter class
+ * @see AppCompatActivity
+ */
 public abstract class MvpActivity<P extends MvpPresenter<V>, V extends MvpView> extends AppCompatActivity
         implements LoaderManager.LoaderCallbacks<P> {
 

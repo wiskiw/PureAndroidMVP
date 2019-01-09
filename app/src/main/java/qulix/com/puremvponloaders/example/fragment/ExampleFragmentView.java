@@ -1,8 +1,8 @@
-package qulix.com.puremvponloaders.some.activity;
+package qulix.com.puremvponloaders.example.fragment;
 
 import qulix.com.puremvponloaders.mvp.MvpView;
 
-public interface SomeActivityView extends MvpView {
+public interface ExampleFragmentView extends MvpView {
 
     void showLoading(boolean loading);
 

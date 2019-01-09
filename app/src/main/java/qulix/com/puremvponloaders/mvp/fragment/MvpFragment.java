@@ -10,6 +10,13 @@ import qulix.com.puremvponloaders.mvp.MvpPresenter;
 import qulix.com.puremvponloaders.mvp.MvpPresenterLoader;
 import qulix.com.puremvponloaders.mvp.MvpView;
 
+/**
+ * Base class for create Mvp Fragment. Process saving presenter instance when screen configuration changing.
+ *
+ * @param <V> view interface, that implement current fragment
+ * @param <P> type of presenter class
+ * @see Fragment
+ */
 public abstract class MvpFragment<P extends MvpPresenter<V>, V extends MvpView>
         extends Fragment implements LoaderManager.LoaderCallbacks<P> {
 
